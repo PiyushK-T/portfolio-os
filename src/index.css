@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "HomeVideo";
+  src: url("/assets/fonts/HomeVideo.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* @layer base {
+  html, body, #root {
+    font-family: "HomeVideo", monospace;
+  }
+} */
+
+html,
+/* body, */
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: #000000;
+  overflow: hidden;
+  font-family: "HomeVideo", monospace;
+}
+
+body {
+  background: #000000;
+  overflow: hidden;
+  font-family: "HomeVideo", monospace;
+  font-size: 18px; /* increased base size */
+  letter-spacing: 0.5px;
+}
+
+/* neon green utility */
+.text-neon {
+  color: #00ff66;
+  font-size: 20px;
+}
+
+.icon-label {
+  font-size: 14px;
+}
+
+.title-text {
+  font-size: 20px;
+}
+
+.glow {
+  filter: drop-shadow(0 0 6px #00ff66);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
