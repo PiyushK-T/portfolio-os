@@ -1,28 +1,19 @@
-import helpIcon from "../assets/ui/help.png";
+import { fileIcons } from "../data/fileIcons";
 
 export default function HelpWidget() {
   return (
-    <div className="absolute bottom-6 right-6 flex flex-col items-end">
-      
-      {/* Button */}
-      <button className="group flex items-center gap-2">
-        
-        <span className="text-neon text-sm opacity-90 group-hover:opacity-100">
-            Can I help you?
-        </span>
+    <div className="absolute bottom-6 right-6">
+      <button className="group flex flex-col items-center gap-2">
         <img
-          src={helpIcon}
-          alt="help"
-          className="
-            w-14 h-14
-            cursor-pointer
-            glow
-            hover:scale-110
-            transition
-            "
+          src={fileIcons.image}
+          alt="Help"
+          className="w-20 h-20 object-contain pixel-icon cursor-pointer transition-transform duration-200 group-hover:scale-105"
         />
-      </button>
 
+        <span className="text-neon text-sm opacity-90 group-hover:opacity-100 text-center">
+          Can I help you?
+        </span>
+      </button>
     </div>
   );
 }

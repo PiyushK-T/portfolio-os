@@ -1,4 +1,5 @@
 import { apps } from "../data/apps";
+import { ABOUT_TEXT } from "../data/fileContent";
 import { useWindowStore } from "../store/useWindowStore";
 
 export default function IconColumn() {
@@ -10,11 +11,26 @@ export default function IconColumn() {
         <div
           key={app.id}
           onClick={() => {
-            if (app.id === "files") {
+          switch (app.id) {
+            case "files":
               openWindow("files", "Files");
-            }
-            if (app.id === "terminal") {
+              break;
+
+            case "terminal":
               openWindow("terminal", "Terminal");
+              break;
+
+            case "system":
+              openWindow("system", "System Monitor");
+              break;
+
+            case "resume":
+              openWindow("pdf", "Resume.pdf", "/assets/resume.pdf");
+              break;
+
+            case "about":
+              openWindow("textfile","About.txt",ABOUT_TEXT);
+                break;
             }
           }}
           className="flex flex-col items-center cursor-pointer group"

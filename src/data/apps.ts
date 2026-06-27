@@ -2,17 +2,12 @@ export const apps = [
   {
     id: "files",
     name: "Files",
-    icon: "/assets/icons/files.png",
+    icon: "/assets/icons/folder.png",
   },
   {
     id: "terminal",
     name: "Terminal",
     icon: "/assets/icons/terminal.png",
-  },
-  {
-    id: "projects",
-    name: "Projects",
-    icon: "/assets/icons/project.png",
   },
   {
     id: "system",
@@ -22,11 +17,11 @@ export const apps = [
   {
     id: "resume",
     name: "Resume.pdf",
-    icon: "/assets/icons/resume.png",
+    icon: "/assets/icons/pdf.png",
   },
   {
     id: "about",
     name: "About.txt",
-    icon: "/assets/icons/profile.png",
+    icon: "/assets/icons/text.png",
   },
 ];

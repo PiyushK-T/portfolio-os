@@ -42,7 +42,7 @@ export default function Window({ window }: any) {
       {/* TITLE BAR */}
       <div
         className="flex justify-between items-center px-3 py-2 border-b border-[#00ff66]/40 cursor-move bg-black"
-        onMouseDown={() => focusWindow(window.id)}
+        onPointerDown={() => focusWindow(window.id)}
       >
         <span className="text-xs tracking-widest opacity-90">
           {window.title}
@@ -61,11 +61,8 @@ export default function Window({ window }: any) {
         className="h-[calc(100%-40px)] overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
       >
-        <WindowRegistry
-          type={window.type}
-          content={window.content}
-          title={window.title}
-        />
+        <WindowRegistry window={window} />
+        
       </div>
     </motion.div>
   );

@@ -1,31 +1,35 @@
 import FilesExplorer from "../apps/FilesExplorer";
 import TextFileViewer from "../apps/TextFileViewer";
-import ProjectViewer from "../apps/ProjectViewer";
 import Terminal from "../apps/Terminal";
+import SystemApp from "../apps/system/SystemApp";
+import PdfViewer from "../apps/PdfViewer";
 
 type Props = {
-  type: string;
-  content?: string;
-  title: string;
+  window: any;
 };
 
-export default function WindowRegistry({ type, content, title }: Props) {
-  switch (type) {
+export default function WindowRegistry({ window }: Props) {
+  switch (window.type) {
     case "files":
       return <FilesExplorer />;
 
     case "textfile":
-      return <TextFileViewer content={content || ""} />;
-
-    case "project":
-      return <ProjectViewer project={title} />;
+      return <TextFileViewer content={window.content ?? ""} />;
 
     case "terminal":
       return <Terminal />;
 
+    case "system":
+      return <SystemApp />;
+
+    case "pdf":
+      return (
+        <PdfViewer file={window.content || "/assets/resume.pdf"} />
+      );
+
     default:
       return (
-        <div className="text-[#00ff66] text-xs p-4 opacity-60">
+        <div className="p-4 text-[#00ff66]">
           Unknown window type
         </div>
       );

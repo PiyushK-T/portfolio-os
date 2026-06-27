@@ -5,6 +5,7 @@ import {
   useState
 } from "react";
 
+import {useSystemStore} from "../../store/useSystemStore";
 import { useWindowStore } from "../../store/useWindowStore";
 
 const helpText = `
@@ -15,6 +16,7 @@ clear
 ls
 pwd
 about
+projects
 resume
 contact
 github
@@ -22,6 +24,8 @@ linkedin
 files
 skills
 `;
+
+// useSystemStore.getState().addLog("event");
 
 export default function Terminal() {
   const [history, setHistory] = useState<string[]>([
@@ -55,6 +59,8 @@ export default function Terminal() {
   const runCommand = (cmd: string) => {
     const command = cmd.trim().toLowerCase();
 
+    useSystemStore.getState().addLog(`Terminal command executed: ${command}`);
+
     const commands: Record<string, () => string> = {
       help: () => helpText,
       clear: () => {
@@ -69,6 +75,11 @@ export default function Terminal() {
       about: () =>
         "Full Stack Developer | React | Node.js | Kubernetes",
       
+      projects: () => {
+        openWindow("files", "Projects", undefined, ["Projects"]);
+        return "Opening Projects...";
+      },
+
       resume: () => {
         // TODO: Implement resume opening logic
         return "Opening resume...";

@@ -1,5 +1,21 @@
 import { useState } from "react";
 import { useWindowStore } from "../../store/useWindowStore";
+import {useSystemStore} from "../../store/useSystemStore";
+import {fileIcons} from "../../data/fileIcons";
+
+// helper function to get the appropriate icon for a file based on its name and type
+function getFileIcon(name: string, type: "folder" | "file") {
+  if (type === "folder") return fileIcons.folder;
+
+  const lower = name.toLowerCase();
+
+  if (lower.endsWith(".pdf")) return fileIcons.pdf;
+
+  if (lower.endsWith(".png") || lower.endsWith(".jpg"))
+    return fileIcons.image;
+
+  return fileIcons.text;
+}
 
 type Node = {
   name: string;
@@ -7,44 +23,62 @@ type Node = {
   children?: Node[];
 };
 
+// useSystemStore.getState().addLog("event");
+
 const structure: Node[] = [
   {
-    name: "Projects", type: "folder", children: [
-      { name: "URL Shortener", type: "folder", children: [
-        { name: "Overview", type: "file" },
-        { name: "Architecture", type: "file" },
-        { name: "Tech Stack", type: "file" },
-        { name: "Links", type: "file" },
-      ]},
-      { name: "ServiceEasy", type: "folder", children: [
-        { name: "Overview", type: "file" },
-        { name: "Features", type: "file" },
-        { name: "Links", type: "file" },
-      ]},
-      { name: "Portfolio", type: "folder", children: [
-        { name: "Overview", type: "file" },
-        { name: "Tech Stack", type: "file" },
-      ]},
+    name: "Projects",
+    type: "folder",
+    children: [
+      {
+        name: "URL Shortener",
+        type: "folder",
+        children: [
+          { name: "Overview.txt", type: "file" },
+          { name: "Architecture.txt", type: "file" },
+          { name: "Tech Stack.txt", type: "file" },
+          { name: "Links.txt", type: "file" },
+        ],
+      },
+      {
+        name: "ServiceEasy",
+        type: "folder",
+        children: [
+          { name: "Overview.txt", type: "file" },
+          { name: "Features.txt", type: "file" },
+          { name: "Links.txt", type: "file" },
+        ],
+      },
+      {
+        name: "Portfolio OS",
+        type: "folder",
+        children: [
+          { name: "Overview.txt", type: "file" },
+          { name: "Tech Stack.txt", type: "file" },
+        ],
+      },
     ],
   },
-  { name: "Skills", type: "folder", children: [
-    { name: "Frontend", type: "file" },
-    { name: "Backend", type: "file" },
-    { name: "DevOps", type: "file" },
-  ]},
-  { name: "Experience", type: "folder", children: [
-    { name: "Internships", type: "file" },
-    { name: "Projects", type: "file" },
-  ]},
-  { name: "Contact", type: "folder", children: [
-    { name: "Email", type: "file" },
-    { name: "Message", type: "file" },
-  ]},
-  { name: "Social Links", type: "folder", children: [
-    { name: "GitHub", type: "file" },
-    { name: "LinkedIn", type: "file" },
-    { name: "Portfolio", type: "file" },
-  ]},
+
+  {
+    name: "Skills.txt",
+    type: "file",
+  },
+
+  {
+    name: "Experience.txt",
+    type: "file",
+  },
+
+  {
+    name: "Contact.txt",
+    type: "file",
+  },
+
+  {
+    name: "Social Links.txt",
+    type: "file",
+  },
 ];
 
 const fileContent: Record<string, string> = {
@@ -56,36 +90,79 @@ const fileContent: Record<string, string> = {
     "Tech Stack\n\nNode.js · TypeScript · MongoDB · Redis · Docker · Kubernetes",
   "Projects/URL Shortener/Links":
     "Links\n\nGitHub: github.com/your-repo\nLive Demo: yourapp.com",
-  "Projects/ServiceEasy/Overview":
+  
+    "Projects/ServiceEasy/Overview":
     "ServiceEasy\n\nService booking platform with real-time availability and integrated payments.",
   "Projects/ServiceEasy/Features":
     "Features\n\n· Service listings with filters\n· Real-time slot booking\n· Stripe payment integration\n· Email confirmation system",
   "Projects/ServiceEasy/Links":
     "Links\n\nGitHub: github.com/your-repo",
-  "Projects/Portfolio OS/Overview":
+  
+    "Projects/Portfolio OS/Overview":
     "Portfolio OS\n\nAn interactive OS-style portfolio. You're looking at it.",
   "Projects/Portfolio OS/Tech Stack":
     "Tech Stack\n\nReact · TypeScript · Tailwind CSS · Framer Motion · Zustand",
-  "Skills/Frontend":
-    "Frontend Skills\n\nReact · TypeScript · Tailwind CSS · Three.js · Framer Motion · HTML · CSS",
-  "Skills/Backend":
-    "Backend Skills\n\nNode.js · Express · MongoDB · PostgreSQL · REST APIs · GraphQL",
-  "Skills/DevOps":
-    "DevOps Skills\n\nDocker · Kubernetes · GitHub Actions · CI/CD · Linux · Nginx",
-  "Experience/Internships":
-    "Internships\n\n· EV startup — built fleet management dashboard\n· Contributed to backend APIs and DevOps pipeline\n· Worked across full stack in agile team environments",
-  "Experience/Projects":
-    "Project Experience\n\nFull stack apps · Microservices · ML experiments · Systems programming",
-  "Contact/Email":
-    "Email\n\npiyushkataktalware@gmail.com",
-  "Contact/Message":
-    "Message\n\nDirect message feature coming soon.",
-  "Social Links/GitHub":
-    "GitHub\n\ngithub.com/PiyushK-T",
-  "Social Links/LinkedIn":
-    "LinkedIn\n\nlinkedin.com/in/piyush-kataktalware",
-  "Social Links/Portfolio":
-    "Portfolio\n\nYou're already here.",
+  
+  "Skills.txt": `
+  SKILLS
+
+  Frontend
+  ---------
+  React
+  TypeScript
+  Tailwind
+  Three.js
+  Framer Motion
+
+  Backend
+  --------
+  Node.js
+  Express
+  MongoDB
+  PostgreSQL
+
+  DevOps
+  -------
+  Docker
+  Kubernetes
+  GitHub Actions
+  `,
+
+  "Experience.txt": `
+  EXPERIENCE
+
+  Software Developer
+
+  • Built scalable web applications
+
+  • Designed REST APIs
+
+  • Containerized applications with Docker
+
+  • Kubernetes deployments
+
+  • CI/CD automation
+  `,
+
+  "Contact.txt": `
+  CONTACT
+
+  Email:
+  piyushkataktalware@gmail.com
+
+  Phone:
+  +1 302-390-3862
+  `,
+
+  "Social Links.txt": `
+  SOCIALS
+
+  GitHub:
+  https://github.com/PiyushK-T
+  
+  LinkedIn:
+  https://linkedin.com/in/piyush-kataktalware
+  `,
 };
 
 function getNodesAtPath(nodes: Node[], path: string[]): Node[] {
@@ -141,8 +218,12 @@ function SidebarTree({
   );
 }
 
-export default function FilesExplorer() {
-  const [path, setPath] = useState<string[]>([]);
+type Props = {
+  startPath?: string[];
+};
+
+export default function FilesExplorer({ startPath = [] }: Props) {
+  const [path, setPath] = useState<string[]>(startPath);
   const [selected, setSelected] = useState<string | null>(null);
   const { openWindow } = useWindowStore();
 
@@ -150,6 +231,7 @@ export default function FilesExplorer() {
   const fullPath = "/home/piyush/files" + (path.length ? "/" + path.join("/") : "");
 
   const handleClick = (node: Node) => {
+    
     if (node.type === "folder") {
       setPath([...path, node.name]);
       setSelected(null);
@@ -157,6 +239,7 @@ export default function FilesExplorer() {
       setSelected(node.name);
       const filePath = [...path, node.name].join("/");
       const content = fileContent[filePath] || "No content available.";
+      useSystemStore.getState().addLog(`File opened: ${node.name}`);
       openWindow("textfile", node.name, content);
     }
   };
@@ -208,9 +291,12 @@ export default function FilesExplorer() {
                       : "border-transparent"
                     }`}
                 >
-                  <span className="text-4xl leading-none">
-                    {node.type === "folder" ? "📁" : "📄"}
-                  </span>
+                  <img
+                    src={getFileIcon(node.name, node.type)}
+                    alt={node.name}
+                    className="w-12 h-12 pixel-icon object-contain pointer-events-none"
+                  />
+
                   <span className="text-center text-[10px] leading-tight break-words w-full text-center opacity-90">
                     {node.name}
                   </span>
